@@ -2,28 +2,16 @@ name: SDK CI
 
 on:
   push:
-    branches: ['**']
-    paths:
-      - 'src/**'
-      - 'tests/**'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'tailwind.config.js'
-      - '.github/workflows/sdk-ci.yml'
   pull_request:
-    branches: ['**']
-    paths:
-      - 'src/**'
-      - 'tests/**'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'tailwind.config.js'
-      - '.github/workflows/sdk-ci.yml'
   workflow_dispatch:
 
 env:
   NODE_VERSION: '20'
   CI: true
+
+concurrency:
+  group: sdk-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   sdk-checks:
@@ -50,3 +38,6 @@ jobs:
 
       - name: Validate package contents
         run: npm pack --dry-run
+
+      - name: Audit runtime dependencies
+        run: npm audit --omit=dev

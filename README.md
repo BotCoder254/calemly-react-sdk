@@ -285,19 +285,36 @@ npm pack --dry-run
 Repository includes SDK-specific workflows:
 
 - `.github/workflows/sdk-ci.yml`
-  - runs SDK install, build, tests, and `npm pack --dry-run`
+  - runs on every push/PR/manual dispatch
+  - runs SDK install, build, tests, package dry-run, and runtime dependency audit
 - `.github/workflows/sdk-publish.yml`
-  - supports manual publish (`workflow_dispatch`)
-  - optional tag-triggered publish on `sdk-v*`
+  - supports manual publish dry-runs (`workflow_dispatch`)
+  - publishes on tag push (`sdk-v*` or `v*`)
+  - validates tag/package version alignment before publish
+  - publishes with npm provenance and creates GitHub Releases automatically
 
 ## Publishing `@calemly/sdk`
 
-1. Ensure `calemlysdk/package.json` version is correct.
-2. Ensure `NPM_TOKEN` is configured in repository secrets.
-3. Run manual publish workflow:
-   - first with `dry_run: true`
-   - then with `dry_run: false` for real publish
-4. Optional: push tag like `sdk-v0.1.0` to trigger publish automatically.
+### Required repository setup
+
+1. Add `NPM_TOKEN` in GitHub repository secrets:
+   - `Settings` -> `Secrets and variables` -> `Actions` -> `New repository secret`
+2. Use an npm token with publish access for the package scope.
+3. Ensure GitHub Actions permissions allow release creation (`contents: write`).
+
+### Recommended release flow (used by this repo)
+
+1. Confirm `package.json` version is correct (example: `0.1.0`).
+2. Run `SDK Publish` manually with `dry_run: true`.
+3. After dry-run success, create and push tag `sdk-v0.1.0`.
+4. Tag push triggers live publish + GitHub Release creation.
+
+### Command example
+
+```bash
+git tag sdk-v0.1.0
+git push origin sdk-v0.1.0
+```
 
 ## Troubleshooting
 

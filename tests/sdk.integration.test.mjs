@@ -3,13 +3,24 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import React from 'react';
-import { JSDOM } from 'jsdom';
+import { JSDOM, VirtualConsole } from 'jsdom';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const sdkRoot = path.resolve(__dirname, '..');
 
 const setupDom = (url = 'https://sdk.test/') => {
-  const dom = new JSDOM('<!doctype html><html><body></body></html>', { url });
+  const virtualConsole = new VirtualConsole();
+  virtualConsole.on('jsdomError', (error) => {
+    if (error?.message?.includes('Not implemented: navigation (except hash changes)')) {
+      return;
+    }
+    console.error(error);
+  });
+
+  const dom = new JSDOM('<!doctype html><html><body></body></html>', {
+    url,
+    virtualConsole,
+  });
 
   global.window = dom.window;
   global.document = dom.window.document;
@@ -41,12 +52,6 @@ const setupDom = (url = 'https://sdk.test/') => {
 
   if (!window.cancelAnimationFrame) {
     window.cancelAnimationFrame = (id) => clearTimeout(id);
-  }
-
-  if (dom.window.Location?.prototype?.assign) {
-    dom.window.Location.prototype.assign = function assign(url) {
-      dom.window.__calemlyRedirectUrl = url;
-    };
   }
 
   return dom;
