@@ -1,0 +1,52 @@
+name: SDK CI
+
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tailwind.config.js'
+      - '.github/workflows/sdk-ci.yml'
+  pull_request:
+    branches: ['**']
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tailwind.config.js'
+      - '.github/workflows/sdk-ci.yml'
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
+  CI: true
+
+jobs:
+  sdk-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build SDK
+        run: npm run build
+
+      - name: Run SDK tests
+        run: npm test
+
+      - name: Validate package contents
+        run: npm pack --dry-run

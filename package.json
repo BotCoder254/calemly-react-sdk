@@ -1,0 +1,47 @@
+{
+  "name": "@calemly/sdk",
+  "version": "0.1.0",
+  "description": "React SDK for Calemly booking widgets",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./styles.css": "./dist/index.css"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "build": "npm run build:js && npm run build:css",
+    "build:css": "tailwindcss -c tailwind.config.js -i ./src/index.css -o ./dist/index.css --minify",
+    "build:js": "tsup src/index.js --format cjs,esm --splitting false --external react --external react-dom --loader .js=jsx --clean",
+    "dev": "npm run build:css && tsup src/index.js --format cjs,esm --splitting false --external react --external react-dom --loader .js=jsx --watch",
+    "test": "npm run build && node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@stripe/react-stripe-js": "^3.10.0",
+    "@stripe/stripe-js": "^7.9.0",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.19",
+    "framer-motion": "^12.24.10",
+    "lucide-react": "^0.562.0"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.0",
+    "jsdom": "^26.1.0",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.7.3",
+    "tsup": "^8.3.0"
+  }
+}

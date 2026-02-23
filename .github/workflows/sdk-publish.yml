@@ -1,0 +1,59 @@
+name: SDK Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Run publish as dry-run'
+        required: false
+        default: true
+        type: boolean
+  push:
+    tags:
+      - 'sdk-v*'
+      - 'v*'
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  publish-sdk:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: package-lock.json
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build SDK
+        run: npm run build
+
+      - name: Run SDK tests
+        run: npm test
+
+      - name: Verify package
+        run: npm pack --dry-run
+
+      - name: Publish package (dry-run)
+        if: github.event_name == 'workflow_dispatch' && inputs.dry_run
+        run: npm publish --access public --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish package
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && !inputs.dry_run)
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
