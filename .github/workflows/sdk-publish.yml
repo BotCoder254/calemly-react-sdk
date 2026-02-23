@@ -52,6 +52,7 @@ jobs:
         run: npm pack --dry-run
 
       - name: Validate npm token is configured
+        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && !inputs.dry_run)
         run: |
           if [ -z "$NODE_AUTH_TOKEN" ]; then
             echo "NPM_TOKEN secret is required for publish workflow runs."
