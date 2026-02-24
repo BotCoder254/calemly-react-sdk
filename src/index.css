@@ -18,6 +18,14 @@
     box-sizing: border-box;
   }
 
+  .calemly-sdk button {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    background: transparent;
+    padding: 0;
+  }
+
   .calemly-sdk button,
   .calemly-sdk input,
   .calemly-sdk textarea,
