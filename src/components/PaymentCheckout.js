@@ -190,22 +190,23 @@ export function PaymentCheckout({
   }
 
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={!isProcessing ? onClose : undefined}
-          className="absolute inset-0 bg-black/50"
-        />
+    <div className="calemly-sdk">
+      <AnimatePresence>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={!isProcessing ? onClose : undefined}
+            className="absolute inset-0 bg-black/50"
+          />
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl shadow-modal overflow-hidden border border-gray-100 dark:border-slate-700"
-        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl shadow-modal overflow-hidden border border-gray-100 dark:border-slate-700"
+          >
           <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-slate-700">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center">
@@ -304,8 +305,9 @@ export function PaymentCheckout({
               </>
             )}
           </div>
-        </motion.div>
-      </div>
-    </AnimatePresence>
+          </motion.div>
+        </div>
+      </AnimatePresence>
+    </div>
   );
 }

@@ -4,6 +4,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  .calemly-sdk {
+    font-family: Inter, ui-sans-serif, system-ui;
+    color: #1f2937;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .calemly-sdk *,
+  .calemly-sdk *::before,
+  .calemly-sdk *::after {
+    box-sizing: border-box;
+  }
+
+  .calemly-sdk button,
+  .calemly-sdk input,
+  .calemly-sdk textarea,
+  .calemly-sdk select {
+    font: inherit;
+    color: inherit;
+  }
+}
+
 @layer utilities {
   .line-clamp-2 {
     display: -webkit-box;

@@ -808,12 +808,13 @@ export function BookingForm({
 
   if (showBrief && hasBrief) {
     return (
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -20 }}
-        className="w-full max-w-xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-card overflow-hidden flex flex-col max-h-[calc(100vh-12rem)] border border-transparent dark:border-slate-700"
-      >
+      <div className="calemly-sdk">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          className="w-full max-w-xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-card overflow-hidden flex flex-col max-h-[calc(100vh-12rem)] border border-transparent dark:border-slate-700"
+        >
         <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-slate-700 flex-shrink-0">
           <div className="flex items-center gap-3">
             <button
@@ -1094,12 +1095,14 @@ export function BookingForm({
                   : 'Acknowledge & Confirm'}
           </Button>
         </div>
-      </motion.div>
+        </motion.div>
+      </div>
     );
   }
 
   return (
-    <div className="w-full max-w-xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-card overflow-hidden flex flex-col max-h-[calc(100vh-12rem)] border border-transparent dark:border-slate-700">
+    <div className="calemly-sdk">
+      <div className="w-full max-w-xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-card overflow-hidden flex flex-col max-h-[calc(100vh-12rem)] border border-transparent dark:border-slate-700">
       <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-slate-700 flex-shrink-0">
         <h2 className="text-lg font-semibold text-neutral-dark dark:text-slate-100">Confirm Your Details</h2>
         <button
@@ -1483,18 +1486,19 @@ export function BookingForm({
         </div>
       </form>
 
-      <PaymentCheckout
-        isOpen={showPayment}
-        onClose={handlePaymentClose}
-        onSuccess={handlePaymentSuccess}
-        clientSecret={paymentClientSecret}
-        amount={resolvedEventType?.price_cents || 0}
-        currency={resolvedEventType?.currency || 'USD'}
-        eventName={resolvedEventType?.name || 'Meeting'}
-        organizerName={resolvedEventType?.orgName || state?.organization?.name || 'Organizer'}
-        refundPolicy={resolvedEventType?.refund_policy}
-        stripePublishableKey={stripePublishableKey}
-      />
+        <PaymentCheckout
+          isOpen={showPayment}
+          onClose={handlePaymentClose}
+          onSuccess={handlePaymentSuccess}
+          clientSecret={paymentClientSecret}
+          amount={resolvedEventType?.price_cents || 0}
+          currency={resolvedEventType?.currency || 'USD'}
+          eventName={resolvedEventType?.name || 'Meeting'}
+          organizerName={resolvedEventType?.orgName || state?.organization?.name || 'Organizer'}
+          refundPolicy={resolvedEventType?.refund_policy}
+          stripePublishableKey={stripePublishableKey}
+        />
+      </div>
     </div>
   );
 }

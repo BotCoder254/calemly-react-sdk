@@ -252,6 +252,7 @@ If Stripe key is not set, checkout warns and cannot confirm card payment.
 - supports `light`, `dark`, and `system`
 - mobile-first layout in widget/form/conflict/payment flows
 - Tailwind-based SDK stylesheet emitted to `dist/index.css`
+- SDK styles are isolated under a `.calemly-sdk` scope to prevent host app CSS collisions
 
 ## Local Development
 
@@ -322,3 +323,4 @@ git push origin sdk-v0.1.0
 - **No slots shown**: verify event type availability and timezone payload.
 - **Payment form not loading**: set `stripePublishableKey` and ensure backend billing routes are enabled.
 - **Conflict errors**: expected under race conditions; pick one of suggested alternatives and retry.
+- **Styles look different in another app**: import `@calemly/sdk/styles.css` once at app entry and avoid CSS pipelines that strip package CSS.

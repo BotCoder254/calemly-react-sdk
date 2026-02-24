@@ -94,14 +94,15 @@ export function ConflictResolver({
   }
 
   return (
-    <AnimatePresence>
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        className="bg-white dark:bg-slate-900 rounded-2xl shadow-card overflow-hidden border border-gray-100 dark:border-slate-700"
-      >
+    <div className="calemly-sdk">
+      <AnimatePresence>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="bg-white dark:bg-slate-900 rounded-2xl shadow-card overflow-hidden border border-gray-100 dark:border-slate-700"
+        >
         <div className="p-4 sm:p-5 border-b border-gray-100 dark:border-slate-700 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/20">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-3">
@@ -222,7 +223,7 @@ export function ConflictResolver({
                         </div>
                       </div>
 
-                      <div className="flex flex-wrap items-center gap-2 pl-13 sm:pl-0">
+                      <div className="flex flex-wrap items-center gap-2 pl-[3.25rem] sm:pl-0">
                         <div className={clsx('px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1', getConfidenceColor(suggestion.confidenceScore || 0))}>
                           <TrendingUp className="w-3 h-3" />
                           {suggestion.confidenceScore || 0}%
@@ -315,7 +316,8 @@ export function ConflictResolver({
             </div>
           </div>
         </div>
-      </motion.div>
-    </AnimatePresence>
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 }

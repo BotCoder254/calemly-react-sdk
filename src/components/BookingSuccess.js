@@ -151,11 +151,12 @@ export function BookingSuccess({ booking, eventType, userTimezone, onDone }) {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="bg-white dark:bg-slate-900 rounded-2xl shadow-modal max-w-md w-full mx-auto overflow-hidden border border-transparent dark:border-slate-700"
-    >
+    <div className="calemly-sdk">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="bg-white dark:bg-slate-900 rounded-2xl shadow-modal max-w-md w-full mx-auto overflow-hidden border border-transparent dark:border-slate-700"
+      >
       <div className="bg-primary-500 p-6 text-center">
         <motion.div
           initial={{ scale: 0 }}
@@ -376,7 +377,7 @@ export function BookingSuccess({ booking, eventType, userTimezone, onDone }) {
         </div>
       </div>
 
-      <div className="p-4 bg-gray-50 dark:bg-slate-800 border-t border-gray-100 dark:border-slate-700 space-y-3">
+        <div className="p-4 bg-gray-50 dark:bg-slate-800 border-t border-gray-100 dark:border-slate-700 space-y-3">
         <div className="relative">
           <Button
             variant="outline"
@@ -416,7 +417,8 @@ export function BookingSuccess({ booking, eventType, userTimezone, onDone }) {
         <Button onClick={onDone} fullWidth>
           Done
         </Button>
-      </div>
-    </motion.div>
+        </div>
+      </motion.div>
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
+  important: '.calemly-sdk',
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],

@@ -299,49 +299,53 @@ function SchedulerWidgetInner({ className = '', ctaLabel, showPoweredBy = true }
 
   if (config.mode === 'modal') {
     return (
-      <div className={wrapperClass}>
-        <div className="min-h-[180px] flex items-center justify-center bg-transparent p-4">
-          <Button onClick={() => setIsWidgetOpen(true)}>{ctaLabel || embedSettings.cta_label || 'Book time'}</Button>
+      <div className="calemly-sdk">
+        <div className={wrapperClass}>
+          <div className="min-h-[180px] flex items-center justify-center bg-transparent p-4">
+            <Button onClick={() => setIsWidgetOpen(true)}>{ctaLabel || embedSettings.cta_label || 'Book time'}</Button>
 
-          <AnimatePresence>
-            {isWidgetOpen ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
-              >
+            <AnimatePresence>
+              {isWidgetOpen ? (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  className="w-full max-w-4xl"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
                 >
-                  <div className="flex justify-end mb-3">
-                    <Button variant="ghost" onClick={() => setIsWidgetOpen(false)}>
-                      <X className="w-4 h-4 mr-2" />
-                      Close
-                    </Button>
-                  </div>
-                  {content}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    className="w-full max-w-4xl"
+                  >
+                    <div className="flex justify-end mb-3">
+                      <Button variant="ghost" onClick={() => setIsWidgetOpen(false)}>
+                        <X className="w-4 h-4 mr-2" />
+                        Close
+                      </Button>
+                    </div>
+                    {content}
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
+              ) : null}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className={wrapperClass}>
-      <div className="max-w-4xl mx-auto">
-        {content}
-        {showPoweredBy ? (
-          <div className="mt-6 text-center">
-            <PoweredByCalemly />
-          </div>
-        ) : null}
+    <div className="calemly-sdk">
+      <div className={wrapperClass}>
+        <div className="max-w-4xl mx-auto">
+          {content}
+          {showPoweredBy ? (
+            <div className="mt-6 text-center">
+              <PoweredByCalemly />
+            </div>
+          ) : null}
+        </div>
       </div>
     </div>
   );

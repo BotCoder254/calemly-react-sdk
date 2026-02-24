@@ -355,14 +355,16 @@ export function CustomFormRenderer({ formSchema, answers, onChange, errors, clas
   const visibleFields = fields.filter((field) => isFieldVisible(field, localAnswers));
 
   return (
-    <div className={clsx('space-y-6', className)}>
-      <div className="border-t border-gray-100 dark:border-slate-700 pt-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">Additional Information</h3>
-        <AnimatePresence mode="wait">
-          <div className="space-y-6">
-            {visibleFields.map((field) => renderField(field))}
-          </div>
-        </AnimatePresence>
+    <div className="calemly-sdk">
+      <div className={clsx('space-y-6', className)}>
+        <div className="border-t border-gray-100 dark:border-slate-700 pt-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-100 mb-4">Additional Information</h3>
+          <AnimatePresence mode="wait">
+            <div className="space-y-6">
+              {visibleFields.map((field) => renderField(field))}
+            </div>
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );

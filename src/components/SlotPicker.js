@@ -141,85 +141,86 @@ export function SlotPicker({
   };
 
   return (
-    <div className={clsx('bg-white dark:bg-slate-900 rounded-xl shadow-card overflow-hidden border border-transparent dark:border-slate-700', className)}>
-      <div className="p-4 border-b border-gray-100 dark:border-slate-700">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div>
-            <h3 className="font-semibold text-neutral-dark dark:text-slate-100">Select a Time</h3>
-            <p className="text-sm text-gray-500 dark:text-slate-400">{resolvedDuration} minute meeting</p>
-          </div>
+    <div className="calemly-sdk">
+      <div className={clsx('bg-white dark:bg-slate-900 rounded-xl shadow-card overflow-hidden border border-transparent dark:border-slate-700', className)}>
+        <div className="p-4 border-b border-gray-100 dark:border-slate-700">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <h3 className="font-semibold text-neutral-dark dark:text-slate-100">Select a Time</h3>
+              <p className="text-sm text-gray-500 dark:text-slate-400">{resolvedDuration} minute meeting</p>
+            </div>
 
-          <div className="flex items-center gap-2 flex-wrap">
-            {onAutoFind || actions?.autoFindBestSlot ? (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleAutoFind}
-                disabled={resolvedIsLoading}
-              >
-                <Sparkles className="w-4 h-4 mr-1" />
-                Auto-find
-              </Button>
-            ) : null}
+            <div className="flex items-center gap-2 flex-wrap">
+              {onAutoFind || actions?.autoFindBestSlot ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleAutoFind}
+                  disabled={resolvedIsLoading}
+                >
+                  <Sparkles className="w-4 h-4 mr-1" />
+                  Auto-find
+                </Button>
+              ) : null}
 
-            {resolvedHasRecentTemplate ? (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleUseRecentTemplate}
-                disabled={resolvedIsLoading || !resolvedSelectedSlot}
-                title={resolvedSelectedSlot ? 'Reuse your previous booking details' : 'Select a time first'}
-              >
-                <History className="w-4 h-4 mr-1" />
-                Same as last time
-              </Button>
-            ) : null}
+              {resolvedHasRecentTemplate ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleUseRecentTemplate}
+                  disabled={resolvedIsLoading || !resolvedSelectedSlot}
+                  title={resolvedSelectedSlot ? 'Reuse your previous booking details' : 'Select a time first'}
+                >
+                  <History className="w-4 h-4 mr-1" />
+                  Same as last time
+                </Button>
+              ) : null}
 
-            <div className="flex bg-gray-100 dark:bg-slate-800 rounded-lg p-1">
-              <button
-                type="button"
-                onClick={() => setViewMode(VIEWS.CALENDAR)}
-                className={clsx(
-                  'p-1.5 rounded transition-colors',
-                  viewMode === VIEWS.CALENDAR
-                    ? 'bg-white dark:bg-slate-700 shadow-sm text-primary-600 dark:text-primary-200'
-                    : 'text-gray-500 dark:text-slate-300 hover:text-gray-700 dark:hover:text-slate-100'
-                )}
-                aria-label="Calendar view"
-              >
-                <Grid3X3 className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode(VIEWS.LIST)}
-                className={clsx(
-                  'p-1.5 rounded transition-colors',
-                  viewMode === VIEWS.LIST
-                    ? 'bg-white dark:bg-slate-700 shadow-sm text-primary-600 dark:text-primary-200'
-                    : 'text-gray-500 dark:text-slate-300 hover:text-gray-700 dark:hover:text-slate-100'
-                )}
-                aria-label="List view"
-              >
-                <List className="w-4 h-4" />
-              </button>
+              <div className="flex bg-gray-100 dark:bg-slate-800 rounded-lg p-1">
+                <button
+                  type="button"
+                  onClick={() => setViewMode(VIEWS.CALENDAR)}
+                  className={clsx(
+                    'p-1.5 rounded transition-colors',
+                    viewMode === VIEWS.CALENDAR
+                      ? 'bg-white dark:bg-slate-700 shadow-sm text-primary-600 dark:text-primary-200'
+                      : 'text-gray-500 dark:text-slate-300 hover:text-gray-700 dark:hover:text-slate-100'
+                  )}
+                  aria-label="Calendar view"
+                >
+                  <Grid3X3 className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode(VIEWS.LIST)}
+                  className={clsx(
+                    'p-1.5 rounded transition-colors',
+                    viewMode === VIEWS.LIST
+                      ? 'bg-white dark:bg-slate-700 shadow-sm text-primary-600 dark:text-primary-200'
+                      : 'text-gray-500 dark:text-slate-300 hover:text-gray-700 dark:hover:text-slate-100'
+                  )}
+                  aria-label="List view"
+                >
+                  <List className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex items-center gap-2 mt-3">
-          <Globe className="w-4 h-4 text-gray-400 dark:text-slate-400" />
-          <button
-            type="button"
-            onClick={() => setShowTimezone((prev) => (prev === 'local' ? 'calendar' : 'local'))}
-            className="text-sm text-gray-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-200 transition-colors"
-          >
-            {displayTimezone}
-            <span className="text-gray-400 dark:text-slate-500 ml-1">
-              ({showTimezone === 'local' ? 'Your time' : 'Calendar time'})
-            </span>
-          </button>
+          <div className="flex items-center gap-2 mt-3">
+            <Globe className="w-4 h-4 text-gray-400 dark:text-slate-400" />
+            <button
+              type="button"
+              onClick={() => setShowTimezone((prev) => (prev === 'local' ? 'calendar' : 'local'))}
+              className="text-sm text-gray-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-200 transition-colors"
+            >
+              {displayTimezone}
+              <span className="text-gray-400 dark:text-slate-500 ml-1">
+                ({showTimezone === 'local' ? 'Your time' : 'Calendar time'})
+              </span>
+            </button>
+          </div>
         </div>
-      </div>
 
       {resolvedIsLoading ? (
         <div className="py-2 px-4">
@@ -391,33 +392,34 @@ export function SlotPicker({
         </AnimatePresence>
       )}
 
-      <AnimatePresence>
-        {resolvedSelectedSlot ? (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="p-4 bg-primary-50 dark:bg-primary-900/20 border-t border-primary-100 dark:border-primary-900/40"
-          >
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="w-10 h-10 rounded-lg bg-primary-500 text-white flex items-center justify-center flex-shrink-0">
-                  <Clock className="w-5 h-5" />
+        <AnimatePresence>
+          {resolvedSelectedSlot ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              className="p-4 bg-primary-50 dark:bg-primary-900/20 border-t border-primary-100 dark:border-primary-900/40"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-lg bg-primary-500 text-white flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-5 h-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-medium text-neutral-dark dark:text-slate-100 truncate">
+                      {formatFullTime(resolvedSelectedSlot.start)}
+                    </p>
+                    <p className="text-sm text-gray-500 dark:text-slate-400">
+                      {resolvedDuration} min • {displayTimezone}
+                    </p>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <p className="font-medium text-neutral-dark dark:text-slate-100 truncate">
-                    {formatFullTime(resolvedSelectedSlot.start)}
-                  </p>
-                  <p className="text-sm text-gray-500 dark:text-slate-400">
-                    {resolvedDuration} min • {displayTimezone}
-                  </p>
-                </div>
+                <Button onClick={handleConfirm}>Confirm</Button>
               </div>
-              <Button onClick={handleConfirm}>Confirm</Button>
-            </div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
