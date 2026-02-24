@@ -2,6 +2,10 @@
   "name": "@calemly/sdk",
   "version": "0.1.0",
   "description": "React SDK for Calemly booking widgets",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BotCoder254/calemly-react-sdk"
+  },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "exports": {
